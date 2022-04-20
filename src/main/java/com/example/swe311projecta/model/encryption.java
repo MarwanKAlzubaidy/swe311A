@@ -1,36 +1,28 @@
 package com.example.swe311projecta.model;
 
+import lombok.Data;
+import lombok.Getter;
+
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-
+@Getter
 public class encryption {
 
 
+    private static  String alg="AES/CBC/PKCS5Padding";
 
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, IOException, InvalidKeyException, ClassNotFoundException {
-        Object o0=null;
-        SecretKey key= getKeyFromPassword("password","salt");
-        SealedObject so=encryptObject("AES/CBC/PKCS5Padding", (Serializable) o0,key,generateIv());
-        SealedObject so2=encryptObject("AES/CBC/PKCS5Padding", (Serializable) o0,key,generateIv());
 
-        FileOutputStream fileOutputStream=new FileOutputStream("student.dat");
-        ObjectOutputStream objectOutputStream=new ObjectOutputStream(fileOutputStream);
-        objectOutputStream.writeObject(so);
-        objectOutputStream.close();
-    }
+
     public static SecretKey generateKey(int n) throws NoSuchAlgorithmException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(n);
@@ -47,10 +39,10 @@ public class encryption {
                 .getEncoded(), "AES");
         return secret;
     }
-    public static IvParameterSpec generateIv() {
+    public static IvParameterSpec generateIv() throws UnsupportedEncodingException {
         byte[] iv = new byte[16];
         new SecureRandom().nextBytes(iv);
-        return new IvParameterSpec(iv);
+        return new IvParameterSpec("aaaabbbbccccdddd".getBytes("ASCII"));
     }
     public static SealedObject encryptObject(String algorithm, Serializable object,
                                              SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException,
@@ -72,5 +64,15 @@ public class encryption {
         cipher.init(Cipher.DECRYPT_MODE, key, iv);
         Serializable unsealObject = (Serializable) sealedObject.getObject(cipher);
         return unsealObject;
+    }
+    public static SealedObject encryptUser(String pass,Serializable userObject) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, IOException, InvalidKeyException {
+        SecretKey secretKey=getKeyFromPassword(pass,"salt4894894894654");
+        return encryptObject(alg,userObject,secretKey,generateIv());
+
+    }
+    public static User decUser(String pass,SealedObject userSealedObject) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, ClassNotFoundException {
+
+        SecretKey secretKey=getKeyFromPassword(pass,"salt4894894894654");
+        return (User) decryptObject(alg,userSealedObject,secretKey,generateIv());
     }
 }

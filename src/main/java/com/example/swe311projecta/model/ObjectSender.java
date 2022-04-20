@@ -10,20 +10,49 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 
 
-public class MessageSender {
+public class ObjectSender extends Thread{
+
     private static final String[] protocols = new String[]{"TLSv1.3"};
     private static final String[] cipher_suites = new String[]{"TLS_AES_128_GCM_SHA256"};
     private SSLSocket clientSocket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    private Object data;
+    private String address;
+    private int port;
 
 
-    char[] pwdArray = "password".toCharArray();
+    public ObjectSender( Object data, String address, int port) {
 
+        this.data = data;
+        this.address = address;
+        this.port = port;
+    }
+
+    @Override
+    public void run() {
+        try {
+            startConnection();
+
+        sendMessage();
+        stopConnection();
+
+        } catch (CertificateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void startConnection() throws IOException, KeyStoreException, CertificateException, NoSuchAlgorithmException {
 
-        clientSocket = (SSLSocket) SSLSocketFactory.getDefault().createSocket("127.0.0.1",4000);
+        clientSocket = (SSLSocket) SSLSocketFactory.getDefault().createSocket(address,port);
         clientSocket.setEnabledCipherSuites(cipher_suites);
         clientSocket.setEnabledProtocols(protocols);
         clientSocket.setWantClientAuth(false);
@@ -32,9 +61,12 @@ public class MessageSender {
         in = new ObjectInputStream(clientSocket.getInputStream());
     }
 
-    public Object sendMessage() throws IOException, ClassNotFoundException {
-        out.writeObject("ASAAA");
-       return in.readObject();
+    public void sendMessage() throws IOException, ClassNotFoundException {
+        out.writeObject(data);
+        Object o=in.readObject();
+        if (o.equals("OK"))
+            System.out.println("OK");
+
     }
 
     public void stopConnection() throws IOException {
@@ -42,24 +74,6 @@ public class MessageSender {
         out.close();
         clientSocket.close();
     }
-    public static void main(String[] args) throws IOException, ClassNotFoundException, CertificateException, KeyStoreException, NoSuchAlgorithmException {
-        System.setProperty("javax.net.ssl.keyStore","myKeyStore.jks");
-
-        System.setProperty("javax.net.ssl.trustStore","myTrustStore.jts");
-
-       // System.setProperty("javax.net.debug","all");
-        System.setProperty("javax.net.ssl.trustStorePassword","123456");
-        System.setProperty("javax.net.ssl.keyStorePassword","123456");
-        MessageReciver receiver=new MessageReciver();
-        receiver.start(4000);
-        receiver.start();
-
-        MessageSender messageSender=new MessageSender();
-        messageSender.startConnection();
-        Object o=messageSender.sendMessage();
-        messageSender.stopConnection();
-        System.out.println(o);
-        //launch();
-    }
 
 }
+
