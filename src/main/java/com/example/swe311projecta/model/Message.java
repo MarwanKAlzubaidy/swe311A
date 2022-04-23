@@ -8,25 +8,23 @@ public class Message implements Serializable {
 
      private String textContent;
      private File    file;
-     private Contact sender;
-     private Contact receiver;
+     private String sender;
+     private String ip;
 
-    public Message(File file, Contact sender, Contact receiver) {
+
+    public Message(File file) {
         this.file = file;
-        this.sender = sender;
-        this.receiver = receiver;
+
     }
 
-    public Message(String textContent, File file, Contact sender, Contact receiver) {
+    public Message(String textContent, File file) {
         this.textContent = textContent;
         this.file = file;
-        this.sender = sender;
-        this.receiver = receiver;
+
     }
 
-    public Message(String textContent, Contact sender, Contact receiver) {
+    public Message(String textContent) {
         this.textContent = textContent;
-        this.sender = sender;
-        this.receiver = receiver;
+        ;
     }
 }

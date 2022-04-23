@@ -33,7 +33,6 @@ public class ObjectSender extends Thread{
     public void run() {
         try {
             startConnection();
-
         sendMessage();
         stopConnection();
 

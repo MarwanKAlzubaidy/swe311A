@@ -10,4 +10,8 @@ public class Chat implements Serializable {
     boolean newMessage;
     ArrayList<Message> messages ;
 
+    public Chat() {
+        this.newMessage = false;
+        this.messages=new ArrayList<>();
+    }
 }

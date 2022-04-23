@@ -4,6 +4,7 @@ import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 import java.io.*;
+import java.util.ArrayList;
 
 public class MessageReceiver extends Thread{
     private static final String[] protocols = new String[]{"TLSv1.3"};
@@ -32,7 +33,7 @@ public class MessageReceiver extends Thread{
        }
 
 
-    private static class EchoClientHandler extends Thread {
+    private  class EchoClientHandler extends Thread {
         private SSLSocket clientSocket;
         private ObjectOutputStream out;
         private ObjectInputStream in;
@@ -48,6 +49,16 @@ public class MessageReceiver extends Thread{
             out = new ObjectOutputStream(clientSocket.getOutputStream());
             in = new ObjectInputStream(clientSocket.getInputStream());
             Object o=in.readObject();
+            if(o instanceof Message)
+            {
+            user.receiveMessage((Message) o);
+
+            }
+            else if(o instanceof ArrayList<?>){
+                ArrayList<Contact> adminNewList=(ArrayList<Contact>)o;
+                if(user.getAdminIp()==clientSocket.getInetAddress().getHostAddress())
+                    user.setApprovedContacts(adminNewList);
+            }
             out.writeObject("OK");
 
 
