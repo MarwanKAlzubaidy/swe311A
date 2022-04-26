@@ -7,24 +7,18 @@ import lombok.*;
 public class Message implements Serializable {
 
      private String textContent;
-     private File    file;
+     private String    file;
      private String sender;
      private String ip;
 
 
-    public Message(File file) {
-        this.file = file;
 
-    }
 
-    public Message(String textContent, File file) {
+    public Message(String textContent, String file) {
         this.textContent = textContent;
         this.file = file;
 
     }
 
-    public Message(String textContent) {
-        this.textContent = textContent;
-        ;
-    }
+
 }

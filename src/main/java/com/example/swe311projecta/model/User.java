@@ -54,7 +54,7 @@ public class User implements Serializable {
         user1.getContacts().forEach(contact -> System.out.println(contact.getName()+contact.getPort()));
         user1.listen();
         user2.listen();
-        Message message=new Message("High world");
+        Message message=new Message("High world","");
         Thread.sleep(4000);
         user2.sendMessage(user2.getContacts().get(0),message);
         Thread.sleep(4000);
@@ -75,8 +75,8 @@ public class User implements Serializable {
         messageReceiver = new MessageReceiver(this);
         contacts=new ArrayList<>();
         approvedContacts=new ArrayList<>();
-
-
+        contacts.add(new Contact("192.152.12.1","place holder",912));
+        System.out.println("mew");
     }
 
     public void init(String password) {
@@ -163,6 +163,17 @@ public class User implements Serializable {
         ObjectSender objectSender=new ObjectSender(self,adminIp,adminPort);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", ip='" + ip + '\'' +
+                ", password='" + password + '\'' +
+                ", port=" + port +
+                ", adminIp='" + adminIp + '\'' +
+                ", adminPort=" + adminPort +
+                '}';
+    }
 }
 
 
