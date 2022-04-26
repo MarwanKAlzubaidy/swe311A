@@ -36,7 +36,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="contactTable" layoutX="-1.0" layoutY="-1.0" prefHeight="426.0" prefWidth="247.0">
+                  <TableView fx:id="contactTable" layoutX="-1.0" layoutY="-1.0" onMouseClicked="#selectContact" prefHeight="426.0" prefWidth="247.0">
                      <columns>
                         <TableColumn fx:id="contName" editable="false" prefWidth="89.60003358125687" text="name" />
                         <TableColumn fx:id="contIp" prefWidth="106.39996337890625" text="ip" />
@@ -47,21 +47,24 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane animated="false" layoutX="502.0" prefHeight="594.0" prefWidth="357.0" text="Chat">
+      <TitledPane animated="false" layoutX="498.0" layoutY="-4.0" prefHeight="594.0" prefWidth="358.0" text="Chat">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="519.0" prefWidth="306.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="349.0">
                <children>
-                  <ListView fx:id="chatList" layoutX="12.0" prefHeight="347.0" prefWidth="338.0" />
-                  <AnchorPane layoutX="14.0" layoutY="347.0" prefHeight="224.0" prefWidth="334.0">
+                  <ListView fx:id="chatList" fixedCellSize="50.0" layoutX="12.0" prefHeight="347.0" prefWidth="338.0" />
+                  <AnchorPane layoutX="14.0" layoutY="347.0" prefHeight="210.0" prefWidth="334.0">
                      <children>
-                        <Button layoutX="268.0" layoutY="14.0" mnemonicParsing="false" text="Send" />
+                        <Button fx:id="sendBT" layoutX="270.0" layoutY="22.0" mnemonicParsing="false" onAction="#sendMessage" text="Send" />
                         <TextArea fx:id="messText" prefHeight="166.0" prefWidth="259.0" />
-                        <Label layoutX="14.0" layoutY="176.0" text="file name:" />
+                        <Label fx:id="fileName" layoutX="14.0" layoutY="176.0" text="file name:" />
+                        <Button fx:id="selectFileBT" layoutX="266.0" layoutY="92.0" mnemonicParsing="false" onAction="#selectFile" text="Select file" />
+                        <Button fx:id="clearFileBT" layoutX="266.0" layoutY="140.0" mnemonicParsing="false" onAction="#clearFile" text="Clear file" />
                      </children>
                   </AnchorPane>
                </children>
             </AnchorPane>
         </content>
       </TitledPane>
+      <Button fx:id="refresh" layoutX="403.0" layoutY="480.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
    </children>
 </AnchorPane>

@@ -2,13 +2,15 @@ package com.example.swe311projecta;
 
 import com.example.swe311projecta.Core.ViewHandler;
 import com.example.swe311projecta.View.ContactViewModel;
+import com.example.swe311projecta.View.MessageViewModel;
 import com.example.swe311projecta.View.UserViewModel;
+import com.example.swe311projecta.model.Contact;
+import com.example.swe311projecta.model.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -26,8 +28,22 @@ public class UserController  {
     @FXML TableColumn<ContactViewModel, Integer> contPort;
 
     @FXML TableColumn<ContactViewModel, String> contName;
-
     @FXML TableColumn<ContactViewModel, String> contIp;
+
+
+    @FXML
+    TextArea messText ;
+    @FXML
+    ListView<MessageViewModel> chatList;
+    @FXML
+    Button sendBT;
+    @FXML
+    Button selectFileBT;
+    @FXML
+    Button clearFileBT;
+
+    String file="";
+    @FXML Button refresh;
 
     public void init(ViewHandler viewHandler,UserViewModel userViewModel) {
         this.userViewModel = userViewModel;
@@ -53,5 +69,27 @@ public class UserController  {
     }
 
 
+    public void selectContact(MouseEvent mouseEvent) {
+        if(contactTable.getSelectionModel().getSelectedItem()!=null)
+        chatList.setItems(contactTable.getSelectionModel().getSelectedItem().getMessages());
+        System.out.println("done");
 
+    }
+
+    public void sendMessage(ActionEvent actionEvent) {
+        if(contactTable.getSelectionModel().getSelectedItem()!=null)
+        userViewModel.sendMessage(contactTable.getSelectionModel().getSelectedItem().getContact(),messText.getText(),file);
+
+    }
+
+    public void selectFile(ActionEvent actionEvent) {
+    }
+
+    public void clearFile(ActionEvent actionEvent) {
+    }
+
+    public void refresh(ActionEvent actionEvent) {
+        userViewModel.updateConatcts();
+
+    }
 }

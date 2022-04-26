@@ -75,7 +75,10 @@ public class User implements Serializable {
         messageReceiver = new MessageReceiver(this);
         contacts=new ArrayList<>();
         approvedContacts=new ArrayList<>();
-        contacts.add(new Contact("192.152.12.1","place holder",912));
+
+
+        addApprovedContact(new Contact("172.20.10.5","nnn",1000));
+        addApprovedContact(new Contact("172.20.10.5","mmm",1005));
         System.out.println("mew");
     }
 
@@ -151,6 +154,7 @@ public class User implements Serializable {
     public void listen(){
         try {
             messageReceiver.start(port);
+            messageReceiver.setDaemon(true);
             messageReceiver.start();
         } catch (IOException e) {
             e.printStackTrace();
@@ -161,6 +165,10 @@ public class User implements Serializable {
     public void sendForm(){
         Contact self=new Contact(ip,name,port);
         ObjectSender objectSender=new ObjectSender(self,adminIp,adminPort);
+    }
+    public void addApprovedContact(Contact contact){
+        approvedContacts.add(contact);
+        contacts.add(contact);
     }
 
     @Override

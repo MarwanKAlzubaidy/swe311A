@@ -1,5 +1,7 @@
 package com.example.swe311projecta.View;
 
+import com.example.swe311projecta.model.Contact;
+import com.example.swe311projecta.model.Message;
 import com.example.swe311projecta.model.User;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -42,9 +44,7 @@ public class UserViewModel {
         port.setValue(user.getPort());
         adminIp.setValue(user.getAdminIp());
         adminPort.setValue(user.getAdminPort());
-        user.getContacts().forEach(contact -> {
-            contacts.add(new ContactViewModel(contact));
-        });
+        updateConatcts();
 
 
     }
@@ -90,5 +90,17 @@ public class UserViewModel {
     }
     public ObservableList<ContactViewModel> getContacts() {
         return contacts;
+    }
+
+    public void sendMessage(Contact contact, String text,String file) {
+        Message message=new Message(text,file, user.getName(), user.getIp());
+        user.sendMessage(contact,message);
+    }
+    public void updateConatcts(){
+        contacts.clear();
+        user.getContacts().forEach(contact -> {
+            contacts.add(new ContactViewModel(contact));
+        });
+        contacts.forEach(contactViewModel -> contactViewModel.updateMessages());
     }
 }

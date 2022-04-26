@@ -23,6 +23,7 @@ public class MessageReceiver extends Thread{
         sslServerSocket.setNeedClientAuth(false);
        }
        public void run(){
+        System.out.println("Starting Listening At: "+user.getIp()+":"+user.getPort());
            while (true) {
                try {
                    new EchoClientHandler((SSLSocket) sslServerSocket.accept()).start();
