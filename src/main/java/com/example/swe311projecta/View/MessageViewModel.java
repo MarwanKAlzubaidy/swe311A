@@ -11,6 +11,7 @@ public class MessageViewModel {
     private StringProperty sender=new SimpleStringProperty();
     private StringProperty fileContent=new SimpleStringProperty();
     private StringProperty date=new SimpleStringProperty();
+    private StringProperty fileName=new SimpleStringProperty();
 
     public MessageViewModel(Message message) {
         this.message = message;
@@ -18,6 +19,7 @@ public class MessageViewModel {
         sender.setValue(message.getSender());
         fileContent.setValue(message.getFile());
         date.setValue(message.getTimestamp());
+        fileName.setValue(message.getFileName());
     }
 
     public String getTextContent() {
@@ -52,8 +54,19 @@ public class MessageViewModel {
         return date;
     }
 
+    public String getFileName() {
+        return fileName.get();
+    }
+
+    public StringProperty fileNameProperty() {
+        return fileName;
+    }
+
     @Override
     public String toString() {
+        if (fileName.get().equals(""))
         return String.format("[%s] %s: %s",getDate(),getSender(),getTextContent());
+        else
+            return String.format("[%s][%s] %s: %s",getDate(),getFileName(),getSender(),getTextContent());
     }
 }

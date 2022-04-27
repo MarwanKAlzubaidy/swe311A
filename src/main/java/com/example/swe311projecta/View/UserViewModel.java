@@ -1,6 +1,7 @@
 package com.example.swe311projecta.View;
 
 import com.example.swe311projecta.model.Contact;
+import com.example.swe311projecta.model.FileIO;
 import com.example.swe311projecta.model.Message;
 import com.example.swe311projecta.model.User;
 import javafx.beans.property.IntegerProperty;
@@ -10,22 +11,34 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.File;
+
 public class UserViewModel {
+    private FileIO fileIO;
     private User user;
     private StringProperty name=new SimpleStringProperty();
     private IntegerProperty port=new SimpleIntegerProperty();
     private StringProperty ip=new SimpleStringProperty();
     private IntegerProperty adminPort=new SimpleIntegerProperty();
     private StringProperty adminIp=new SimpleStringProperty();
+    private StringProperty password=new SimpleStringProperty();
 
 
 
     private ObservableList<ContactViewModel> contacts = FXCollections.observableArrayList();
 
-    public UserViewModel(User user) {
+    public UserViewModel(User user,FileIO fileIO) {
         this.user = user;
-
+        this.fileIO=fileIO;
         refresh();
+    }
+
+    public String getPassword() {
+        return password.get();
+    }
+
+    public StringProperty passwordProperty() {
+        return password;
     }
 
     public void setUserValues(){
@@ -35,6 +48,7 @@ public class UserViewModel {
         user.setAdminIp(adminIp.getValue());
         user.setPort(adminPort.getValue());
         user.setAdminPort(adminPort.getValue());
+        user.setPassword(password.getValue());
         System.out.println(user);
 
     }
@@ -44,6 +58,7 @@ public class UserViewModel {
         port.setValue(user.getPort());
         adminIp.setValue(user.getAdminIp());
         adminPort.setValue(user.getAdminPort());
+        password.setValue(user.getPassword());
         updateConatcts();
 
 
@@ -88,19 +103,29 @@ public class UserViewModel {
     public StringProperty adminIpProperty() {
         return adminIp;
     }
+
     public ObservableList<ContactViewModel> getContacts() {
         return contacts;
     }
 
-    public void sendMessage(Contact contact, String text,String file) {
-        Message message=new Message(text,file, user.getName(), user.getIp());
+    public void sendMessage(Contact contact, String text,String file,String fileName) {
+        Message message=new Message(text,file, user.getName(), user.getIp(),fileName);
         user.sendMessage(contact,message);
     }
+    public void setSaveLocation(File file){
+        fileIO.setFile(file);
+    }
+
+
     public void updateConatcts(){
         contacts.clear();
         user.getContacts().forEach(contact -> {
             contacts.add(new ContactViewModel(contact));
         });
         contacts.forEach(contactViewModel -> contactViewModel.updateMessages());
+    }
+
+    public String getFileSaveLocation() {
+        return fileIO.getFile().getPath();
     }
 }

@@ -77,8 +77,8 @@ public class User implements Serializable {
         approvedContacts=new ArrayList<>();
 
 
-        addApprovedContact(new Contact("172.20.10.5","nnn",1000));
-        addApprovedContact(new Contact("172.20.10.5","mmm",1005));
+        addApprovedContact(new Contact("127.0.0.1","nnn",1000));
+        addApprovedContact(new Contact("127.0.0.1","mmm",1005));
         System.out.println("mew");
     }
 

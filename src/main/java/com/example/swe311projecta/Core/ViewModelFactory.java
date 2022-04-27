@@ -11,7 +11,7 @@ public class ViewModelFactory {
         this.mf = mf;
     }
     public UserViewModel getUserViewModel(){
-        return new UserViewModel(mf.getUser());
+        return new UserViewModel(mf.getUser(),mf.getFileIO());
     }
     public StartUpViewModel getStartUpViewModel(){return new StartUpViewModel(this,mf.getFileIO(),mf.getUser());
     }

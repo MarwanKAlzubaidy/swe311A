@@ -46,6 +46,7 @@ public class StartUpViewModel {
         try {
             user=fileIO.fileToUser(password.get());
             user.init(getPassword());
+            viewModelFactory.getMf().setUser(user);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

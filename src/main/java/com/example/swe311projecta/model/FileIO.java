@@ -16,7 +16,7 @@ import javax.crypto.SealedObject;
 
 @Data
 public class FileIO {
-    private  File file;
+    private  File file=new File("user.data");
 
 
 
@@ -29,7 +29,7 @@ public class FileIO {
 
 
     }
-    public void saveUser(User user,File file,String password) throws IOException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
+    public void saveUser(User user,String password) throws IOException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
         ObjectOutputStream objectOutputStream=new ObjectOutputStream(new FileOutputStream(file));
         SealedObject sealedObject=encryption.encryptUser(password,user);
         objectOutputStream.writeObject(sealedObject);

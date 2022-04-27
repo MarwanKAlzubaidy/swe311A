@@ -35,6 +35,7 @@ public class StartUpController {
         StringConverter s=new IntegerStringConverter();
         port.textProperty().bindBidirectional(startUpViewModel.portProperty(), s);
         adminPort.textProperty().bindBidirectional(startUpViewModel.adminPortProperty(),s );
+        password.textProperty().bindBidirectional(startUpViewModel.passwordProperty());
     }
 
     public void CreateNewUser(ActionEvent actionEvent) {
@@ -45,6 +46,7 @@ public class StartUpController {
 
     public void loadUser(ActionEvent actionEvent) {
         startUpViewModel.loadUser();
+        viewHandler.openUserView();
     }
 
     public void setFile(ActionEvent actionEvent) {
