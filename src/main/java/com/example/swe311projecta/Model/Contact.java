@@ -1,26 +1,44 @@
-package com.example.swe311projecta.model;
+package com.example.swe311projecta.Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lombok.Data;
-
+import lombok.Getter;
 import java.io.Serializable;
 
 @Data
-
+@Getter
 public class Contact implements Serializable {
     private String ip;
     private String name;
     private int port;
     private transient boolean Online;
     private Chat chat;
-
-    public Contact(String ip, String name, int port) {
+    private ObservableList<Message> messages= FXCollections.observableArrayList();
+  
+  
+  public Contact(String ip, String name, int port) {
         this.ip = ip;
         this.name = name;
         this.port = port;
         chat=new Chat();
     }
-
-    @Override
+  
+    
+  public void updateMessages(){
+    messages.clear();
+    this.getChat().getMessages().forEach(message -> {
+      messages.add(
+          new Message(
+              message.getTextContent(),
+              message.getFile(),
+              message.getSender(),
+              message.getIp(),
+              message.getFileName()));
+    });
+  }
+  
+  @Override
     public String toString() {
         return "Contact{" +
                 "ip='" + ip + '\'' +

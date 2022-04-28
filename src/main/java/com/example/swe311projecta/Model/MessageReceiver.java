@@ -1,4 +1,4 @@
-package com.example.swe311projecta.model;
+package com.example.swe311projecta.Model;
 
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;

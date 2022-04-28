@@ -1,6 +1,5 @@
-package com.example.swe311projecta.model;
+package com.example.swe311projecta.Model;
 
-import java.io.File;
 import java.io.Serializable;
 
 import java.sql.Timestamp;
@@ -12,8 +11,8 @@ import lombok.*;
 public class Message implements Serializable {
 
      private String textContent;
-     private String    file;
-     private String     fileName;
+     private String file;
+     private String fileName;
      private String sender;
      private String ip;
      private String timestamp;
@@ -33,5 +32,8 @@ public class Message implements Serializable {
     public Message(String high_world, String file) {
 
     }
-
+  
+  public byte[] getFileContent() {
+      return file.getBytes();
+  }
 }
