@@ -1,13 +1,10 @@
-package com.example.swe311projecta.model;
+package com.example.swe311projecta.Model;
 
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 
 
 public class ObjectSender extends Thread{
@@ -36,20 +33,12 @@ public class ObjectSender extends Thread{
         sendMessage();
         stopConnection();
 
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void startConnection() throws IOException, KeyStoreException, CertificateException, NoSuchAlgorithmException {
+    public void startConnection() throws Exception {
 
         clientSocket = (SSLSocket) SSLSocketFactory.getDefault().createSocket(address,port);
         clientSocket.setEnabledCipherSuites(cipher_suites);
@@ -60,7 +49,7 @@ public class ObjectSender extends Thread{
         in = new ObjectInputStream(clientSocket.getInputStream());
     }
 
-    public void sendMessage() throws IOException, ClassNotFoundException {
+    public void sendMessage() throws Exception {
         out.writeObject(data);
         Object o=in.readObject();
         if (o.equals("OK"))

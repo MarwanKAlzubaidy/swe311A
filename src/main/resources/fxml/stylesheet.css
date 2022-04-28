@@ -1,0 +1,15 @@
+.table-cell:filled {
+    -fx-background-color: #fff;
+}
+
+.table-view:row-selection .table-row-cell:selected .table-cell {
+    -fx-background-color: #418fd8;
+}
+
+.table-view:cell-selection .table-cell:selected {
+    -fx-background-color: -fx-table-cell-border-color,  #22578A;
+}
+
+.table-view .table-cell .table-row-cell {
+    -fx-background-color: #418fd8;
+}

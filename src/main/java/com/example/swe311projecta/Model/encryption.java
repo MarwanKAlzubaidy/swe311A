@@ -1,28 +1,26 @@
-package com.example.swe311projecta.model;
+package com.example.swe311projecta.Model;
 
-import lombok.Data;
 import lombok.Getter;
-
-import javax.crypto.*;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SealedObject;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.*;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+
+
 @Getter
 public class encryption {
-
-
-    private static  String alg="AES/CBC/PKCS5Padding";
-
-
-
-
+    private static final String alg = "AES/CBC/PKCS5Padding";
+    
+    
     public static SecretKey generateKey(int n) throws NoSuchAlgorithmException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(n);
@@ -30,8 +28,7 @@ public class encryption {
         return key;
     }
 
-    public static SecretKey getKeyFromPassword(String password, String salt)
-            throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static SecretKey getKeyFromPassword(String password, String salt) throws Exception {
 
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
@@ -45,9 +42,7 @@ public class encryption {
         return new IvParameterSpec("aaaabbbbccccdddd".getBytes("ASCII"));
     }
     public static SealedObject encryptObject(String algorithm, Serializable object,
-                                             SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException,
-            NoSuchAlgorithmException, InvalidAlgorithmParameterException,
-            InvalidKeyException, IOException, IllegalBlockSizeException {
+                                             SecretKey key, IvParameterSpec iv) throws Exception {
 
         Cipher cipher = Cipher.getInstance(algorithm);
         cipher.init(Cipher.ENCRYPT_MODE, key, iv);
@@ -55,22 +50,19 @@ public class encryption {
         return sealedObject;
     }
     public static Serializable decryptObject(String algorithm, SealedObject sealedObject,
-                                             SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException,
-            NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException,
-            ClassNotFoundException, BadPaddingException, IllegalBlockSizeException,
-            IOException {
+                                             SecretKey key, IvParameterSpec iv) throws Exception {
 
         Cipher cipher = Cipher.getInstance(algorithm);
         cipher.init(Cipher.DECRYPT_MODE, key, iv);
         Serializable unsealObject = (Serializable) sealedObject.getObject(cipher);
         return unsealObject;
     }
-    public static SealedObject encryptUser(String pass,Serializable userObject) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, IOException, InvalidKeyException {
+    public static SealedObject encryptUser(String pass,Serializable userObject) throws Exception {
         SecretKey secretKey=getKeyFromPassword(pass,"salt4894894894654");
         return encryptObject(alg,userObject,secretKey,generateIv());
 
     }
-    public static User decUser(String pass,SealedObject userSealedObject) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, ClassNotFoundException {
+    public static User decryptUser(String pass, SealedObject userSealedObject) throws Exception {
 
         SecretKey secretKey=getKeyFromPassword(pass,"salt4894894894654");
         return (User) decryptObject(alg,userSealedObject,secretKey,generateIv());
