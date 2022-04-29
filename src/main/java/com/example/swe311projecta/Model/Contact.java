@@ -14,8 +14,7 @@ public class Contact implements Serializable {
     private int port;
     private transient boolean Online;
     private Chat chat;
-    private ObservableList<Message> messages= FXCollections.observableArrayList();
-  
+
   
   public Contact(String ip, String name, int port) {
         this.ip = ip;
@@ -25,18 +24,7 @@ public class Contact implements Serializable {
     }
   
     
-  public void updateMessages(){
-    messages.clear();
-    this.getChat().getMessages().forEach(message -> {
-      messages.add(
-          new Message(
-              message.getTextContent(),
-              message.getFile(),
-              message.getSender(),
-              message.getIp(),
-              message.getFileName()));
-    });
-  }
+
   
   @Override
     public String toString() {

@@ -79,10 +79,12 @@ public class User implements Serializable {
     
     public void addMessageToContactChat(Contact contact, Message message){
         contact.getChat().getMessages().add(message);
+        System.out.println(contact.getChat().getMessages().size());
     }
     
     
     public void receiveMessage(Message message){
+
         Contact receiver = matchMessageSender(message.getIp(), message.getSender());
         
         if(receiver != null && contacts.contains(receiver)) {
@@ -141,15 +143,7 @@ public class User implements Serializable {
         this.sendMessage(contact, message);
     }
     
-    public void updateContacts(){
-        contacts.clear();
-        this.getContacts().forEach(contact -> {
-            contacts.add(
-                new Contact(contact.getIp(), contact.getName(), contact.getPort()));
-        });
-        
-        contacts.forEach(Contact::updateMessages);
-    }
+
     
     
     

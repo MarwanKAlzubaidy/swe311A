@@ -62,8 +62,9 @@ public class UserController  {
 
     public void selectContact() {
         if(contactTable.getSelectionModel().getSelectedItem() != null){
-            chatList.setItems(contactTable.getSelectionModel().getSelectedItem().getMessages());
-            System.out.println(contactTable.getSelectionModel().getSelectedItem().getMessages());
+
+            chatList.setItems(contactTable.getSelectionModel().getSelectedItem().getChat().getMessages());
+
         }
 
     }
@@ -117,7 +118,7 @@ public class UserController  {
                 FXCollections.observableArrayList(sharedResources.getUser().getContacts());
         contactTable.setItems(contactList);
 
-        // sharedResources.getUser().updateContacts();
+
         
         int j = chatList.getSelectionModel().getSelectedIndex();
 
