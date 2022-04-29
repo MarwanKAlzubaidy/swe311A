@@ -63,12 +63,14 @@ public class UserController  {
     public void selectContact() {
         if(contactTable.getSelectionModel().getSelectedItem() != null){
             chatList.setItems(contactTable.getSelectionModel().getSelectedItem().getMessages());
+            System.out.println(contactTable.getSelectionModel().getSelectedItem().getMessages());
         }
+
     }
 
     public void sendMessage(ActionEvent actionEvent) {
         if(contactTable.getSelectionModel().getSelectedItem() != null){
-            user.sendMessage(contactTable.getSelectionModel().getSelectedItem(),
+            sharedResources.getUser().sendMessage(contactTable.getSelectionModel().getSelectedItem(),
                 messText.getText(),
                 fileUTF,
                 fileName);
@@ -110,7 +112,12 @@ public class UserController  {
     // what's j and what's i????
     public void refresh() {
         int i = contactTable.getSelectionModel().getFocusedIndex();
-        sharedResources.getUser().updateContacts();
+
+        ObservableList<Contact> contactList =
+                FXCollections.observableArrayList(sharedResources.getUser().getContacts());
+        contactTable.setItems(contactList);
+
+        // sharedResources.getUser().updateContacts();
         
         int j = chatList.getSelectionModel().getSelectedIndex();
 
@@ -189,12 +196,12 @@ public class UserController  {
 //                sharedResources.getUser().getPassword()
 //            ));
         
-//        saveLocation.setText("Save Location " + sharedResources.getFileIO().getFile().getPath());
+       saveLocation.setText("Save Location " + sharedResources.getFileIO().getFile().getPath());
 //
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> refresh()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
         
-//        sharedResources.getUser().listen();
+        sharedResources.getUser().listen();
     }
 }

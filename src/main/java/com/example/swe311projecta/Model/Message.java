@@ -29,11 +29,18 @@ public class Message implements Serializable {
     }
 
 
-    public Message(String high_world, String file) {
-
+    @Override
+    public String toString() {
+        return "Message{" +
+                "textContent='" + textContent + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", sender='" + sender + '\'' +
+                ", ip='" + ip + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                '}';
     }
-  
-  public byte[] getFileContent() {
+
+    public byte[] getFileContent() {
       return file.getBytes();
   }
 }

@@ -43,6 +43,8 @@ public class StartUpController {
             Integer.parseInt(adminPort.getText())
         );
         sharedResources.setUser(user);
+        sharedResources.setFileIO(new FileIO(new File("user.data")));
+
         anchorPane.getScene().getWindow().hide();
         // Opening another view
         openUserView();
@@ -52,7 +54,6 @@ public class StartUpController {
         try {
             sharedResources.setUser(fileIO.fileToUser(password.getText()));
             sharedResources.setUser(new User(password.getText()));
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
