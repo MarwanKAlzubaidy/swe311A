@@ -49,7 +49,7 @@
             </GridPane>
          </content>
       </TitledPane>
-      <TitledPane layoutX="372.0" layoutY="31.0" prefHeight="200.0" prefWidth="200.0" text="Load User From encrpyted file">
+      <TitledPane layoutX="372.0" layoutY="31.0" prefHeight="200.0" prefWidth="200.0" text="Load User From encrypted file">
          <content>
             <GridPane>
               <columnConstraints>
@@ -68,7 +68,7 @@
             </GridPane>
          </content>
       </TitledPane>
-      <Label layoutX="165.0" layoutY="231.0" text="you must write password for both encreption and loading" />
+      <Label layoutX="165.0" layoutY="231.0" text="you must write password for both encryption and loading" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

@@ -23,12 +23,7 @@ public class encryption {
 
 
 
-    public static SecretKey generateKey(int n) throws NoSuchAlgorithmException {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        keyGenerator.init(n);
-        SecretKey key = keyGenerator.generateKey();
-        return key;
-    }
+
 
     public static SecretKey getKeyFromPassword(String password, String salt)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -42,6 +37,7 @@ public class encryption {
     public static IvParameterSpec generateIv() throws UnsupportedEncodingException {
         byte[] iv = new byte[16];
         new SecureRandom().nextBytes(iv);
+
         return new IvParameterSpec("aaaabbbbccccdddd".getBytes("ASCII"));
     }
     public static SealedObject encryptObject(String algorithm, Serializable object,

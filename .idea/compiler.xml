@@ -7,10 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="swe311projectA" />
+        <module name="RunPTPChat" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="RunPTPChat" target="18" />
       <module name="swe311projectA" target="18" />
     </bytecodeTargetLevel>
   </component>
