@@ -1,9 +1,8 @@
-package com.example.swe311projecta.View.StartUp;
+package com.example.swe311projecta.ViewModel;
 
-import com.example.swe311projecta.Core.ModelFactory;
 import com.example.swe311projecta.Core.ViewModelFactory;
-import com.example.swe311projecta.model.FileIO;
-import com.example.swe311projecta.model.User;
+import com.example.swe311projecta.Model.FileIO;
+import com.example.swe311projecta.Model.User;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -38,35 +37,23 @@ public class StartUpViewModel {
 
     public void CreateUser() {
         user=new User(name.get(),ip.get(),password.get(),port.get(),adminIp.get(),adminPort.get());
-        viewModelFactory.getMf().setUser(user);
+        viewModelFactory.getModelFactory().setUser(user);
     }
-
-    public void loadUser(){
-
-        try {
-            user=fileIO.fileToUser(password.get());
+    
+    /*
+     TODO: delete these explicit Exceptions and replace them with one Exception.
+      They are only good for debugging
+    */
+    public void loadUser() throws IOException, InvalidKeyException, BadPaddingException, InvalidKeySpecException,
+    NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException,
+    InvalidAlgorithmParameterException, ClassNotFoundException {
+        
+            user = fileIO.fileToUser(password.get());
             user.init(getPassword());
-            viewModelFactory.getMf().setUser(user);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        }
+            viewModelFactory.getModelFactory().setUser(user);
     }
+    
+    
     public void setFile(File file){
         fileIO.setFile(file);
     }

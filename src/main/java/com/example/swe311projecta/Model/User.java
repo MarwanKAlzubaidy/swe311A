@@ -1,4 +1,4 @@
-package com.example.swe311projecta.model;
+package com.example.swe311projecta.Model;
 
 import lombok.Data;
 
@@ -13,6 +13,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 @Data
@@ -41,8 +42,9 @@ public class User implements Serializable {
         // System.setProperty("javax.net.debug","all");
         System.setProperty("javax.net.ssl.trustStorePassword","123456");
         System.setProperty("javax.net.ssl.keyStorePassword","123456");
-        User user1=new User("u1","127.0.0.1","1",5454,"1925",0);
-        User user2=new User("u2","127.0.0.1","1",5434,"1925",0);
+    
+        User user1=new User("u1","127.0.0.2","1",5454,"127.0.0.1", 9118);
+        User user2=new User("u2","127.0.0.3","1",5434,"127.0.0.1",9118);
         ArrayList<Contact> contactArrayList=new ArrayList<>();
         Contact self1=new Contact(user1.ip, user1.name, user1.port);
         Contact self2=new Contact(user2.ip, user2.name, user2.port);
@@ -75,18 +77,15 @@ public class User implements Serializable {
         messageReceiver = new MessageReceiver(this);
         contacts=new ArrayList<>();
         approvedContacts=new ArrayList<>();
-
-
-        addApprovedContact(new Contact("127.0.0.1","nnn",1000));
-        addApprovedContact(new Contact("127.0.0.1","mmm",1005));
+    
+        addApprovedContact(new Contact("127.0.0.4","nnn",5454));
+        addApprovedContact(new Contact("127.0.0.5","mmm",8000));
         System.out.println("mew");
     }
 
     public void init(String password) {
         messageReceiver = new MessageReceiver(this);
         this.password = password;
-
-
     }
 
 
@@ -104,11 +103,9 @@ public class User implements Serializable {
 
         try {
             return  (User) encryption.decUser(password,sealedObject);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        } catch (IOException | InvalidAlgorithmParameterException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidKeyException | ClassNotFoundException e) {
+        } catch (NoSuchAlgorithmException | IOException | InvalidAlgorithmParameterException | NoSuchPaddingException |
+                 IllegalBlockSizeException | BadPaddingException | InvalidKeyException | ClassNotFoundException |
+                 InvalidKeySpecException e) {
             e.printStackTrace();
         }
         return null;
@@ -119,10 +116,12 @@ public class User implements Serializable {
 
 
     }
-    public void sendMessage(Contact receiver,Message message ){
-
+    public void sendMessage(Contact receiver,Message message){
+        Random random = new Random();
+        int communicationPort = random.nextInt(65535);
         message.setIp(ip);
         message.setSender(name);
+        
         ObjectSender sender=new ObjectSender(message, receiver.getIp(), receiver.getPort());
         sender.start();
         addMessageToContactChat(receiver,message);
@@ -159,7 +158,6 @@ public class User implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void sendForm(){

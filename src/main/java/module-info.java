@@ -6,7 +6,8 @@ module com.example.swe311projecta {
 
     opens com.example.swe311projecta to javafx.fxml;
     exports com.example.swe311projecta;
-    opens com.example.swe311projecta.View.StartUp to javafx.fxml;
-    opens com.example.swe311projecta.View to javafx.base;
-
+    opens com.example.swe311projecta.ViewModel to javafx.base, javafx.fxml;
+    opens com.example.swe311projecta.Controller to javafx.fxml;
+    exports com.example.swe311projecta.Controller;
+    
 }

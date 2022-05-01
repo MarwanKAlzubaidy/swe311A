@@ -1,9 +1,11 @@
-package com.example.swe311projecta.model;
+package com.example.swe311projecta.Model;
 
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class MessageReceiver extends Thread{
@@ -23,7 +25,7 @@ public class MessageReceiver extends Thread{
         sslServerSocket.setNeedClientAuth(false);
        }
        public void run(){
-        System.out.println("Starting Listening At: "+user.getIp()+":"+user.getPort());
+        System.out.println("Starting Listening At: "+ user.getIp() +":"+user.getPort());
            while (true) {
                try {
                    new EchoClientHandler((SSLSocket) sslServerSocket.accept()).start();

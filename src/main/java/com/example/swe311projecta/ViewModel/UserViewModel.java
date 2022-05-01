@@ -1,17 +1,23 @@
-package com.example.swe311projecta.View;
+package com.example.swe311projecta.ViewModel;
 
-import com.example.swe311projecta.model.Contact;
-import com.example.swe311projecta.model.FileIO;
-import com.example.swe311projecta.model.Message;
-import com.example.swe311projecta.model.User;
+import com.example.swe311projecta.Model.Contact;
+import com.example.swe311projecta.Model.FileIO;
+import com.example.swe311projecta.Model.Message;
+import com.example.swe311projecta.Model.User;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 public class UserViewModel {
     private FileIO fileIO;
@@ -62,6 +68,16 @@ public class UserViewModel {
         updateConatcts();
 
 
+    }
+    
+    public void goToEditInfoScene() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/EditUserInfo.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setResizable(false);
+        stage.setTitle("Edit info");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public String getName() {
@@ -128,4 +144,9 @@ public class UserViewModel {
     public String getFileSaveLocation() {
         return fileIO.getFile().getPath();
     }
+    
+    public void exitApp() {
+        Platform.exit();
+    }
+    
 }

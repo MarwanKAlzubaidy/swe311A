@@ -3,8 +3,8 @@ package com.example.swe311projecta;
 import com.example.swe311projecta.Core.ModelFactory;
 import com.example.swe311projecta.Core.ViewHandler;
 import com.example.swe311projecta.Core.ViewModelFactory;
-import com.example.swe311projecta.model.FileIO;
-import com.example.swe311projecta.model.User;
+import com.example.swe311projecta.Model.FileIO;
+import com.example.swe311projecta.Model.User;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -41,10 +41,15 @@ public class PTPChat extends Application {
     public void stop(){
 
         System.out.println("Stage is closing");
-        FileIO fileIO=mf.getFileIO();
-        User user=mf.getUser();
+        FileIO fileIO = mf.getFileIO();
+        User user = mf.getUser();
         try {
-            fileIO.saveUser(user,user.getPassword());
+            if(fileIO.getFile().exists()){
+                fileIO.saveUser(user,user.getPassword());
+            }
+            else {
+                System.out.println("Can't save user");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidAlgorithmParameterException e) {

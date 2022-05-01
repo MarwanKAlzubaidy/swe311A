@@ -1,4 +1,4 @@
-package com.example.swe311projecta.model;
+package com.example.swe311projecta.Model;
 
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
@@ -36,15 +36,8 @@ public class ObjectSender extends Thread{
         sendMessage();
         stopConnection();
 
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (CertificateException | IOException | KeyStoreException | NoSuchAlgorithmException |
+                 ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

@@ -1,9 +1,9 @@
-package com.example.swe311projecta;
+package com.example.swe311projecta.Controller;
 
 import com.example.swe311projecta.Core.ViewHandler;
-import com.example.swe311projecta.View.ContactViewModel;
-import com.example.swe311projecta.View.MessageViewModel;
-import com.example.swe311projecta.View.UserViewModel;
+import com.example.swe311projecta.ViewModel.ContactViewModel;
+import com.example.swe311projecta.ViewModel.MessageViewModel;
+import com.example.swe311projecta.ViewModel.UserViewModel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -64,29 +64,23 @@ public class UserController  {
     public void init(ViewHandler viewHandler,UserViewModel userViewModel) {
         this.userViewModel = userViewModel;
         this.viewHandler=viewHandler;
-        name.textProperty().bindBidirectional(userViewModel.nameProperty() );
-        ip.textProperty().bindBidirectional(userViewModel.ipProperty());
-        adminIp.textProperty().bindBidirectional(userViewModel.adminIpProperty());
+//        name.textProperty().bindBidirectional(userViewModel.nameProperty() );
+//        ip.textProperty().bindBidirectional(userViewModel.ipProperty());
+        
         StringConverter s=new IntegerStringConverter();
-        port.textProperty().bindBidirectional(userViewModel.portProperty(), s);
-        adminPort.textProperty().bindBidirectional(userViewModel.adminPortProperty(),s );
+//        port.textProperty().bindBidirectional(userViewModel.portProperty(), s);
         contPort.setCellValueFactory(new PropertyValueFactory<>("port"));
         contName.setCellValueFactory(new PropertyValueFactory<>("name"));
         contIp.setCellValueFactory(new PropertyValueFactory<>("ip"));
         contactTable.setItems(userViewModel.getContacts());
-        password.textProperty().bindBidirectional(userViewModel.passwordProperty());
-        saveLocation.setText("Save Location"+userViewModel.getFileSaveLocation());
+//        password.textProperty().bindBidirectional(userViewModel.passwordProperty());
+//        saveLocation.setText("Save Location"+userViewModel.getFileSaveLocation());
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),
-                new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent ae) {
-                        refresh();
-                    }
-                }
-        ));
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> refresh()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
+        userViewModel.refresh();
     }
 
 
@@ -184,5 +178,13 @@ public class UserController  {
         File file=fileChooser.showSaveDialog(new Popup());
         userViewModel.setSaveLocation(file);
         saveLocation.setText("save Location:"+ file.getPath());
+    }
+    
+    public void goToEditInfoScene(ActionEvent actionEvent) throws IOException {
+        userViewModel.goToEditInfoScene();
+    }
+    
+    public void exitApp(ActionEvent actionEvent) {
+        userViewModel.exitApp();
     }
 }

@@ -1,7 +1,6 @@
-package com.example.swe311projecta.model;
+package com.example.swe311projecta.Model;
 
 import lombok.Data;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
