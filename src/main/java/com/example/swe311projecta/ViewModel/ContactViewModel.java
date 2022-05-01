@@ -1,6 +1,6 @@
-package com.example.swe311projecta.View;
+package com.example.swe311projecta.ViewModel;
 
-import com.example.swe311projecta.model.Contact;
+import com.example.swe311projecta.Model.Contact;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -59,7 +59,9 @@ public class ContactViewModel {
 
     public void updateMessages(){
         messages.clear();
-        contact.getChat().getMessages().forEach(message -> {messages.add(new MessageViewModel(message));});
+        contact.getChat().getMessages().forEach(message -> {
+            messages.add(new MessageViewModel(message));
+        });
 
     }
 }

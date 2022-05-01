@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="1170.0" style="-fx-background-color: #f4f4f4;" stylesheets="@../stylesheet/stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.swe311projecta.Controller.UserController">
+    <children>
+        <Button fx:id="sendToAdminButton" layoutX="76.0" layoutY="766.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: #22578A;" text="send details to admin" textFill="#f4f4f4">
+            <font>
+                <Font name="Montserrat Medium Italic" size="16.0" />
+            </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+        <Button fx:id="selectSaveLoc" layoutX="76.0" layoutY="685.0" mnemonicParsing="false" onAction="#selectSaveLocation" prefHeight="30.0" prefWidth="161.0" style="-fx-background-color: #22578A;" text="Browse Directories" textFill="#f4f4f4">
+            <font>
+                <Font name="Montserrat Medium Italic" size="13.0" />
+            </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+        <Label fx:id="saveLocation" layoutX="258.0" layoutY="800.0" text="save Location:" visible="false">
+            <font>
+                <Font name="Montserrat Regular" size="15.0" />
+            </font></Label>
+        <MenuBar layoutY="1.0" prefHeight="30.0" prefWidth="1170.0" style="-fx-background-color: #fff;">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#goToEditInfoScene" text="Edit user info" />
+                        <MenuItem mnemonicParsing="false" onAction="#exitApp" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Info">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <ScrollPane layoutX="76.0" layoutY="121.0" prefHeight="502.0" prefWidth="406.0">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="404.0">
+                    <children>
+                        <TableView id="table-view" fx:id="contactTable" onMouseClicked="#selectContact" prefHeight="502.0" prefWidth="406.0" style="-fx-background-color: #FFF;">
+                            <columns>
+                                <TableColumn id="table-cell" fx:id="contName" editable="false" prefWidth="145.0" text="name" />
+                                <TableColumn fx:id="contIp" prefWidth="161.0" text="ip" />
+                                <TableColumn fx:id="contPort" prefWidth="105.0" text="port" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <Label layoutX="201.0" layoutY="53.0" text="Contacts" textFill="#333333">
+            <font>
+                <Font name="DejaVu Serif Condensed Bold" size="35.0" />
+            </font>
+        </Label>
+        <Label layoutX="76.0" layoutY="655.0" text="Select save location:">
+            <font>
+                <Font name="Montserrat Regular" size="16.0" />
+            </font>
+        </Label>
+      <Label layoutX="811.0" layoutY="53.0" text="Chat" textFill="#333333">
+         <font>
+            <Font name="DejaVu Serif Condensed Bold" size="35.0" />
+         </font>
+      </Label>
+          <AnchorPane layoutX="649.0" layoutY="121.0" minHeight="0.0" minWidth="0.0" prefHeight="502.0" prefWidth="406.0">
+              <children>
+                  <ListView fx:id="chatList" fixedCellSize="50.0" prefHeight="502.0" prefWidth="406.0" style="-fx-background-color: #FFF;" />
+              </children>
+          </AnchorPane>
+            <AnchorPane layoutX="649.0" layoutY="628.0" prefHeight="212.0" prefWidth="406.0">
+                <children>
+                    <Button fx:id="sendBT" layoutX="340.0" layoutY="12.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="107.0" prefWidth="66.0" style="-fx-background-color: #50c878;" text="Send" textFill="#f4f4f4">
+               <font>
+                  <Font name="Montserrat ExtraBold Italic" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+                    <TextArea fx:id="messText" layoutY="12.0" prefHeight="107.0" prefWidth="331.0" style="-fx-background-color: #FFF;" wrapText="true">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextArea>
+                    <Label fx:id="fileNameLabel" layoutX="1.0" layoutY="184.0" text="file name:">
+               <font>
+                  <Font name="Montserrat Regular" size="14.0" />
+               </font>
+            </Label>
+                    <Button fx:id="selectFileBT" layoutY="135.0" mnemonicParsing="false" onAction="#selectFile" prefHeight="31.0" prefWidth="142.0" style="-fx-background-color: #22578A;" text="Select file" textFill="#f4f4f4">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Montserrat SemiBold" size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="#f4f4f4" glyphName="FILE" translateX="-5.0" />
+               </graphic>
+            </Button>
+                    <Button fx:id="clearFileBT" layoutX="156.0" layoutY="135.0" mnemonicParsing="false" onAction="#clearFile" prefHeight="31.0" prefWidth="142.0" style="-fx-background-color: #22578A;" text="Clear file" textFill="#f4f4f4">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Montserrat SemiBold" size="16.0" />
+               </font>
+            </Button>
+            <FontAwesomeIconView fill="#f4f4f4" glyphName="SEND" layoutX="367.0" layoutY="45.0" size="16" />
+                </children>
+            </AnchorPane>
+            <Button fx:id="saveFileContentBT" layoutX="1073.0" layoutY="44.0" mnemonicParsing="false" onAction="#saveMessage" prefHeight="31.0" prefWidth="83.0" style="-fx-background-color: #22578A;" text="Save" textFill="#f4f4f4">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Montserrat SemiBold" size="16.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="#f4f4f4" glyphName="SAVE" />
+         </graphic>
+      </Button>
+    </children>
+</AnchorPane>

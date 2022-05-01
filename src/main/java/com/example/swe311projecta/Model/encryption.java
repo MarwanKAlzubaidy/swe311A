@@ -1,6 +1,5 @@
-package com.example.swe311projecta.model;
+package com.example.swe311projecta.Model;
 
-import lombok.Data;
 import lombok.Getter;
 
 import javax.crypto.*;
@@ -16,14 +15,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 @Getter
 public class encryption {
-
-
-    private static  String alg="AES/CBC/PKCS5Padding";
-
-
-
-
-
+    private static final String alg = "AES/CBC/PKCS5Padding";
 
     public static SecretKey getKeyFromPassword(String password, String salt)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -40,6 +32,11 @@ public class encryption {
 
         return new IvParameterSpec("aaaabbbbccccdddd".getBytes("ASCII"));
     }
+    
+    /*
+    TODO: delete these explicit Exceptions and replace them with one Exception.
+     They are only good for debugging
+    */
     public static SealedObject encryptObject(String algorithm, Serializable object,
                                              SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException,
             NoSuchAlgorithmException, InvalidAlgorithmParameterException,

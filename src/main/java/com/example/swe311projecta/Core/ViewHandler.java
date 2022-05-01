@@ -1,25 +1,25 @@
 package com.example.swe311projecta.Core;
 
-import com.example.swe311projecta.UserController;
-import com.example.swe311projecta.View.StartUp.StartUpController;
-import com.example.swe311projecta.model.User;
+import com.example.swe311projecta.Controller.EditUserInfoController;
+import com.example.swe311projecta.Controller.UserController;
+import com.example.swe311projecta.Controller.StartUpController;
+import com.example.swe311projecta.ViewModel.EditUserInfoViewModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class ViewHandler {
 
-    private ViewModelFactory vmf;
-    private Stage stage;
+    private final ViewModelFactory vmf;
+    private final Stage stage;
     private StartUpController startUpController;
     private Scene StartUpScene;
 
     public ViewHandler(ViewModelFactory vmf) {
         this.vmf = vmf;
-        stage  =new Stage();
+        stage = new Stage();
     }
     public void start(){
         openStartUpView();
@@ -30,8 +30,7 @@ public class ViewHandler {
         try {
         FXMLLoader loader=new FXMLLoader();
 
-
-        loader.setLocation(getClass().getResource("/fxml/StartUpView.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/StartUpView-v2.fxml"));
 
             Parent root = loader.load();
             StartUpController startUpController=loader.getController();
@@ -47,7 +46,7 @@ public class ViewHandler {
     public void openUserView(){
         try {
         FXMLLoader loader=new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/UserView.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/UserView-v2.fxml"));
             Parent root = loader.load();
         UserController userController=loader.getController();
 
@@ -61,9 +60,21 @@ public class ViewHandler {
             e.printStackTrace();
         }
         stage.show();
-
-
     }
-
-
+    
+    public void openEditUserInfoView(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/EditUserInfo.fxml"));
+            Parent root = loader.load();
+            EditUserInfoController EditUserInfoController = loader.getController();
+    
+            EditUserInfoController.init(this, vmf.getEditUserInfoViewModel());
+            
+            Scene userViewScene = new Scene(root);
+            stage.setScene(new Scene(root));
+        } catch(IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

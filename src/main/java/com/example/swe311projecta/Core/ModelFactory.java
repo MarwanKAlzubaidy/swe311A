@@ -1,7 +1,7 @@
 package com.example.swe311projecta.Core;
 
-import com.example.swe311projecta.model.FileIO;
-import com.example.swe311projecta.model.User;
+import com.example.swe311projecta.Model.FileIO;
+import com.example.swe311projecta.Model.User;
 import lombok.Setter;
 
 @Setter

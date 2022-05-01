@@ -1,9 +1,8 @@
-package com.example.swe311projecta.View;
+package com.example.swe311projecta.ViewModel;
 
-import com.example.swe311projecta.model.Message;
+import com.example.swe311projecta.Model.Message;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 
 public class MessageViewModel {
     private Message message;

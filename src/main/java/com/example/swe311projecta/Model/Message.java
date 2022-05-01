@@ -1,6 +1,5 @@
-package com.example.swe311projecta.model;
+package com.example.swe311projecta.Model;
 
-import java.io.File;
 import java.io.Serializable;
 
 import java.sql.Timestamp;
