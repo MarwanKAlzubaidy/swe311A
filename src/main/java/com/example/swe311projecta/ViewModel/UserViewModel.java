@@ -48,14 +48,14 @@ public class UserViewModel {
     }
 
     public void setUserValues(){
-        System.out.println(user);
+
         user.setName(name.getValue());
         user.setIp(ip.getValue());
         user.setAdminIp(adminIp.getValue());
         user.setPort(adminPort.getValue());
         user.setAdminPort(adminPort.getValue());
         user.setPassword(password.getValue());
-        System.out.println(user);
+
 
     }
     public void refresh(){
@@ -139,6 +139,9 @@ public class UserViewModel {
             contacts.add(new ContactViewModel(contact));
         });
         contacts.forEach(contactViewModel -> contactViewModel.updateMessages());
+    }
+    public void sendForm(){
+        user.sendForm();
     }
 
     public String getFileSaveLocation() {

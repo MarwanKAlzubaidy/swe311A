@@ -17,7 +17,7 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="1170.0" style="-fx-background-color: #f4f4f4;" stylesheets="@../stylesheet/stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.swe311projecta.Controller.UserController">
     <children>
-        <Button fx:id="sendToAdminButton" layoutX="76.0" layoutY="766.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: #22578A;" text="send details to admin" textFill="#f4f4f4">
+        <Button fx:id="sendToAdminButton" layoutX="76.0" layoutY="766.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="220.0" style="-fx-background-color: #22578A;" text="send details to admin" textFill="#f4f4f4"  onAction="#sendToAdmin">
             <font>
                 <Font name="Montserrat Medium Italic" size="16.0" />
             </font>

@@ -78,9 +78,8 @@ public class User implements Serializable {
         contacts=new ArrayList<>();
         approvedContacts=new ArrayList<>();
     
-        addApprovedContact(new Contact("127.0.0.4","nnn",5454));
-        addApprovedContact(new Contact("127.0.0.5","mmm",8000));
-        System.out.println("mew");
+
+
     }
 
     public void init(String password) {
@@ -117,8 +116,8 @@ public class User implements Serializable {
 
     }
     public void sendMessage(Contact receiver,Message message){
-        Random random = new Random();
-        int communicationPort = random.nextInt(65535);
+
+
         message.setIp(ip);
         message.setSender(name);
         
@@ -136,10 +135,15 @@ public class User implements Serializable {
 
     }
     public void receiveMessage(Message message){
-        Contact reciver=matchMessageSender(message.getIp(), message.getSender());
-        if(reciver!=null)
-        if (contacts.contains(reciver))
-            reciver.getChat().getMessages().add(message);
+        Contact sender=matchMessageSender(message.getIp(), message.getSender());
+        if(sender!=null)
+        if (contacts.contains(sender)){
+
+            sender=contacts.get(contacts.indexOf(sender));
+
+            sender.getChat().getMessages().add(message);
+            sender.getChat().getMessages().forEach(message1 -> {System.out.println(message1);});
+        }
 
     }
     public Contact matchMessageSender(String ip,String name){
@@ -163,6 +167,7 @@ public class User implements Serializable {
     public void sendForm(){
         Contact self=new Contact(ip,name,port);
         ObjectSender objectSender=new ObjectSender(self,adminIp,adminPort);
+        objectSender.start();
     }
     public void addApprovedContact(Contact contact){
         approvedContacts.add(contact);

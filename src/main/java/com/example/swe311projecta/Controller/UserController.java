@@ -92,7 +92,7 @@ public class UserController  {
     public void selectContact() {
         if(contactTable.getSelectionModel().getSelectedItem()!=null)
         chatList.setItems(contactTable.getSelectionModel().getSelectedItem().getMessages());
-        System.out.println("done");
+
 
     }
 
@@ -186,5 +186,9 @@ public class UserController  {
     
     public void exitApp(ActionEvent actionEvent) {
         userViewModel.exitApp();
+    }
+
+    public void sendToAdmin(ActionEvent actionEvent) {
+        userViewModel.sendForm();
     }
 }

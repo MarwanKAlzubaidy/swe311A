@@ -52,15 +52,18 @@ public class MessageReceiver extends Thread{
             out = new ObjectOutputStream(clientSocket.getOutputStream());
             in = new ObjectInputStream(clientSocket.getInputStream());
             Object o=in.readObject();
+
             if(o instanceof Message)
             {
             user.receiveMessage((Message) o);
 
             }
-            else if(o instanceof ArrayList<?>){
+            else {
+
                 ArrayList<Contact> adminNewList=(ArrayList<Contact>)o;
-                if(user.getAdminIp()==clientSocket.getInetAddress().getHostAddress())
+                if(user.getAdminIp().equals(clientSocket.getInetAddress().getHostAddress()))
                     user.setApprovedContacts(adminNewList);
+
             }
             out.writeObject("OK");
 
@@ -70,7 +73,7 @@ public class MessageReceiver extends Thread{
             clientSocket.close();}
             catch (Exception e){
 
-
+                e.printStackTrace();
 
             }
         }
