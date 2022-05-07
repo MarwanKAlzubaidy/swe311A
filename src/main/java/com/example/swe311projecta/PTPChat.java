@@ -44,12 +44,10 @@ public class PTPChat extends Application {
         FileIO fileIO = mf.getFileIO();
         User user = mf.getUser();
         try {
-            if(fileIO.getFile().exists()){
+
                 fileIO.saveUser(user,user.getPassword());
-            }
-            else {
-                System.out.println("Can't save user");
-            }
+
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidAlgorithmParameterException e) {
