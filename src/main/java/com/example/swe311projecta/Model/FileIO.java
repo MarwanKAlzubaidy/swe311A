@@ -37,5 +37,8 @@ public class FileIO {
 
 
     }
+    public void setFile(File file) {
+        this.file = file;
+    }
 
 }
