@@ -34,38 +34,7 @@ public class User implements Serializable {
     private String adminIp;
     private int adminPort;
 
-    public static void main(String[] args) throws InterruptedException {
-        System.setProperty("javax.net.ssl.keyStore","myKeyStore.jks");
 
-        System.setProperty("javax.net.ssl.trustStore","myTrustStore.jts");
-
-        // System.setProperty("javax.net.debug","all");
-        System.setProperty("javax.net.ssl.trustStorePassword","123456");
-        System.setProperty("javax.net.ssl.keyStorePassword","123456");
-    
-        User user1=new User("u1","127.0.0.2","1",5454,"127.0.0.1", 9118);
-        User user2=new User("u2","127.0.0.3","1",5434,"127.0.0.1",9118);
-        ArrayList<Contact> contactArrayList=new ArrayList<>();
-        Contact self1=new Contact(user1.ip, user1.name, user1.port);
-        Contact self2=new Contact(user2.ip, user2.name, user2.port);
-
-        contactArrayList.add(self1);
-        contactArrayList.add(self2);
-        user1.setApprovedContacts(contactArrayList);
-        user2.setApprovedContacts(contactArrayList);
-        user1.getContacts().forEach(contact -> System.out.println(contact.getName()+contact.getPort()));
-        user1.listen();
-        user2.listen();
-        Message message=new Message("High world","");
-        Thread.sleep(4000);
-        user2.sendMessage(user2.getContacts().get(0),message);
-        Thread.sleep(4000);
-        user1.getContacts().get(1).getChat().getMessages().forEach(message1 -> System.out.println(message.getTextContent()));
-        user2.getContacts().get(0).getChat().getMessages().forEach(message1 -> System.out.println(message.getTextContent()));
-
-
-
-    }
 
     public User(String name, String ip, String password, int port, String adminIp, int adminPort) {
         this.name = name;
@@ -92,27 +61,29 @@ public class User implements Serializable {
 
 
     public void sendMessage(Contact receiver,Message message) throws InterruptedException {
+        System.out.println((approvedContacts.contains(receiver)));
+        approvedContacts.forEach(contact -> System.out.println(contact));
+        if(approvedContacts.contains(receiver)) {
+            message.setIp(ip);
+            message.setSender(name);
 
-
-        message.setIp(ip);
-        message.setSender(name);
-        
-        ObjectSender sender=new ObjectSender(message, receiver.getIp(), receiver.getPort());
-        sender.start();
-        Thread t = new Thread() {
-            public void run() {
-                try {
-                    sender.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            ObjectSender sender = new ObjectSender(message, receiver.getIp(), receiver.getPort());
+            sender.start();
+            Thread t = new Thread() {
+                public void run() {
+                    try {
+                        sender.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (sender.getAnswer().equals("OK"))
+                        addMessageToContactChat(receiver, message);
                 }
-                if(sender.getAnswer().equals("OK"))
-                    addMessageToContactChat(receiver,message);
-            }
-        };
-        t.start();
+            };
+            t.start();
 
-
+        }else
+            System.out.println("not an approved Contact");
 
 
 

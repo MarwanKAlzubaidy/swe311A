@@ -20,9 +20,9 @@ public class PTPChat extends Application {
     ModelFactory mf = new ModelFactory();
 
     public static void main(String[] args) {
-        System.setProperty("javax.net.ssl.keyStore","myKeyStore.jks");
+        System.setProperty("javax.net.ssl.keyStore","keys/myKeyStore.jks");
 
-        System.setProperty("javax.net.ssl.trustStore","myTrustStore.jts");
+        System.setProperty("javax.net.ssl.trustStore","keys/myTrustStore.jts");
 
         // System.setProperty("javax.net.debug","all");
         System.setProperty("javax.net.ssl.trustStorePassword","123456");
