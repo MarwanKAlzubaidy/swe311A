@@ -131,6 +131,7 @@ public class UserController  {
 
     public void clearFile() {
         fileUTF="";
+        fileName="";
         fileNameLabel.setText("File Name:");
     }
 
