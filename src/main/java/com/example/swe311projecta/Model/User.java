@@ -63,7 +63,7 @@ public class User implements Serializable {
         user1.getContacts().get(1).getChat().getMessages().forEach(message1 -> System.out.println(message.getTextContent()));
         user2.getContacts().get(0).getChat().getMessages().forEach(message1 -> System.out.println(message.getTextContent()));
 
-        System.out.println("After");
+
 
     }
 
@@ -89,33 +89,9 @@ public class User implements Serializable {
 
 
 
-    public SealedObject EncUser() {
-        try {
-            return encryption.encryptUser(password, this);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-
-        }
-    }
-    public User Decrypt(SealedObject sealedObject){
-
-        try {
-            return  (User) encryption.decUser(password,sealedObject);
-        } catch (NoSuchAlgorithmException | IOException | InvalidAlgorithmParameterException | NoSuchPaddingException |
-                 IllegalBlockSizeException | BadPaddingException | InvalidKeyException | ClassNotFoundException |
-                 InvalidKeySpecException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-    }
-
-    public void loadUser() {
 
 
-    }
-    public void sendMessage(Contact receiver,Message message){
+    public void sendMessage(Contact receiver,Message message) throws InterruptedException {
 
 
         message.setIp(ip);
@@ -123,7 +99,20 @@ public class User implements Serializable {
         
         ObjectSender sender=new ObjectSender(message, receiver.getIp(), receiver.getPort());
         sender.start();
-        addMessageToContactChat(receiver,message);
+        Thread t = new Thread() {
+            public void run() {
+                try {
+                    sender.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(sender.getAnswer().equals("OK"))
+                    addMessageToContactChat(receiver,message);
+            }
+        };
+        t.start();
+
+
 
 
 
@@ -142,7 +131,7 @@ public class User implements Serializable {
             sender=contacts.get(contacts.indexOf(sender));
 
             sender.getChat().getMessages().add(message);
-            sender.getChat().getMessages().forEach(message1 -> {System.out.println(message1);});
+
         }
 
     }

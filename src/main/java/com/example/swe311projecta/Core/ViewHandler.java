@@ -72,7 +72,9 @@ public class ViewHandler {
             EditUserInfoController.init(this, vmf.getEditUserInfoViewModel());
             
             Scene userViewScene = new Scene(root);
-            stage.setScene(new Scene(root));
+            Stage stage1=new Stage();
+            stage1.setScene(userViewScene);
+            stage1.show();
         } catch(IOException e) {
             throw new RuntimeException(e);
         }

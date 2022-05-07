@@ -96,7 +96,7 @@ public class UserController  {
 
     }
 
-    public void sendMessage(ActionEvent actionEvent) {
+    public void sendMessage(ActionEvent actionEvent) throws InterruptedException {
         if(contactTable.getSelectionModel().getSelectedItem()!=null)
         userViewModel.sendMessage(contactTable.getSelectionModel().getSelectedItem().getContact(),messText.getText(),fileUTF, fileName);
         clearFile();
@@ -181,7 +181,7 @@ public class UserController  {
     }
     
     public void goToEditInfoScene(ActionEvent actionEvent) throws IOException {
-        userViewModel.goToEditInfoScene();
+        viewHandler.openEditUserInfoView();
     }
     
     public void exitApp(ActionEvent actionEvent) {

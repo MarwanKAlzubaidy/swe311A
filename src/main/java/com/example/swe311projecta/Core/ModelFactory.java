@@ -22,6 +22,7 @@ public class ModelFactory {
 
     public void setUser(User user) {
         this.user = user;
+        getFileIO();
         user.listen();
 
     }

@@ -14,6 +14,7 @@ public class ObjectSender extends Thread{
 
     private static final String[] protocols = new String[]{"TLSv1.3"};
     private static final String[] cipher_suites = new String[]{"TLS_AES_128_GCM_SHA256"};
+    private String answer;
     private SSLSocket clientSocket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -39,6 +40,7 @@ public class ObjectSender extends Thread{
         } catch (CertificateException | IOException | KeyStoreException | NoSuchAlgorithmException |
                  ClassNotFoundException e) {
             e.printStackTrace();
+            answer="no";
         }
     }
 
@@ -57,6 +59,7 @@ public class ObjectSender extends Thread{
         out.writeObject(data);
         Object o=in.readObject();
         if (o.equals("OK"))
+            answer="OK";
             System.out.println("OK");
 
     }
@@ -65,6 +68,10 @@ public class ObjectSender extends Thread{
         in.close();
         out.close();
         clientSocket.close();
+    }
+    public String getAnswer()
+    {
+        return answer;
     }
 
 }

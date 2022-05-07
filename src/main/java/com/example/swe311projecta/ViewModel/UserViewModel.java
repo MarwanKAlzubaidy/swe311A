@@ -1,5 +1,6 @@
 package com.example.swe311projecta.ViewModel;
 
+import com.example.swe311projecta.Core.ViewHandler;
 import com.example.swe311projecta.Model.Contact;
 import com.example.swe311projecta.Model.FileIO;
 import com.example.swe311projecta.Model.Message;
@@ -70,15 +71,7 @@ public class UserViewModel {
 
     }
     
-    public void goToEditInfoScene() throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/EditUserInfo.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setResizable(false);
-        stage.setTitle("Edit info");
-        stage.setScene(scene);
-        stage.show();
-    }
+
 
     public String getName() {
         return name.get();
@@ -124,7 +117,7 @@ public class UserViewModel {
         return contacts;
     }
 
-    public void sendMessage(Contact contact, String text,String file,String fileName) {
+    public void sendMessage(Contact contact, String text,String file,String fileName) throws InterruptedException {
         Message message=new Message(text,file, user.getName(), user.getIp(),fileName);
         user.sendMessage(contact,message);
     }

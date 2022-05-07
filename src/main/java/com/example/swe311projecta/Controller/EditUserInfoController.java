@@ -15,6 +15,9 @@ import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 public class EditUserInfoController {
+  public TextField password;
+  public TextField adminIp;
+  public TextField adminPort;
   ViewHandler viewHandler;
   EditUserInfoViewModel editUserInfoViewModel;
   @FXML TextField ip;
@@ -29,6 +32,10 @@ public class EditUserInfoController {
     ip.textProperty().bindBidirectional(editUserInfoViewModel.ipProperty());
     StringConverter s=new IntegerStringConverter();
     port.textProperty().bindBidirectional(editUserInfoViewModel.portProperty(), s);
+    password.textProperty().bindBidirectional(editUserInfoViewModel.passwordProperty());
+    adminIp.textProperty().bindBidirectional(editUserInfoViewModel.adminIpProperty());
+    adminPort.textProperty().bindBidirectional(editUserInfoViewModel.adminPortProperty(), s);
+
   }
   
   @FXML
